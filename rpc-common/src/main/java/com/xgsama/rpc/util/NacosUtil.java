@@ -34,6 +34,7 @@ public class NacosUtil {
 
     public static NamingService getNacosNamingService() {
         try {
+            log.info("connect to nacos:{}", SERVER_ADDR);
             return NamingFactory.createNamingService(SERVER_ADDR);
         } catch (NacosException e) {
             log.error("连接到Nacos时有错误发生: ", e);
@@ -42,6 +43,7 @@ public class NacosUtil {
     }
 
     public static void registerService(String serviceName, InetSocketAddress address) throws NacosException {
+        log.info("registerService=serviceName:{}, address{}", serviceName, address);
         namingService.registerInstance(serviceName, address.getHostName(), address.getPort());
         NacosUtil.address = address;
         serviceNames.add(serviceName);
